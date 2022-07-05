@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, FormControl, InputLabel, Input } from "@mui/material";
+import { FormControl, Input } from "@mui/material";
 import Message from "./Message";
 import { db } from "./firebase";
 import firebase from "firebase";
 import FlipMove from "react-flip-move";
+import Logo from "../img/logo.png";
+import styled from "styled-components";
+import { Send } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 function Ui() {
 	const [input, setInput] = useState("");
@@ -44,22 +48,28 @@ function Ui() {
 		setInput(e.target.value);
 	};
 	return (
-		<div>
+		<Main>
+			<img src={Logo} alt='' style={{ width: 100 }} />
 			<h1>Ethio Messenger</h1>
 			<h2>{username} እንኳን ደህና መጡ</h2>
-			<form>
-				<FormControl>
-					<InputLabel>Send a message...</InputLabel>
-					<Input value={input} onChange={inputHandler} />
+			<form className='form'>
+				<FormControl className='form-control'>
+					<Input
+						className='input'
+						placeholder='Enter a message...'
+						value={input}
+						onChange={inputHandler}
+					/>
 
-					<Button
-						disabled={!input}
-						variant='contained'
+					<IconButton
+						className='icon-btn'
 						type='submit'
+						disabled={!input}
 						onClick={sendMessage}
+						color='primary'
 					>
-						Send Message
-					</Button>
+						<Send />
+					</IconButton>
 				</FormControl>
 			</form>
 
@@ -68,8 +78,32 @@ function Ui() {
 					<Message key={id} username={username} message={message} />
 				))}
 			</FlipMove>
-		</div>
+		</Main>
 	);
 }
 
+const Main = styled.div`
+	.form {
+		padding: 20px;
+		position: fixed;
+		bottom: 0;
+		z-index: 1;
+		background-color: #fefeff;
+		width: 100%;
+		margin: 20px;
+	}
+
+	.form-control {
+		display: flex !important;
+		flex-direction: row !important;
+	}
+
+	.icon-btn {
+		flex: 0;
+	}
+
+	.input {
+		flex: 1;
+	}
+`;
 export default Ui;

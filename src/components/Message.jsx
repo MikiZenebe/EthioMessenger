@@ -10,7 +10,7 @@ const Message = forwardRef(({ message, username }, ref) => {
 				<Card className={isUser ? "message-userCard" : "message-guest"}>
 					<CardContent>
 						<Typography variant='h5' component='h2'>
-							{message.username}: {message.message}
+							{!isUser && `${message.username || "Unkown User"}: `} {message.message}
 						</Typography>
 					</CardContent>
 				</Card>
@@ -38,7 +38,7 @@ const Main = styled.div`
 	}
 
 	.message-guest {
-		background-color: #e9e9eb !important;
+		background-color: #ffffff !important;
 	}
 `;
 export default Message;
